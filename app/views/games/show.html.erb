@@ -1,0 +1,18 @@
+<table style="width:100%;">
+  <tr>
+    <th style="text-align: left;">Clock</th>
+    <th style="text-align: left;">Period</th>
+    <th style="text-align: left;">Type</th>
+    <th style="text-align: left;">Updated</th>
+    <th style="text-align: left;">Description</th>
+  </tr>
+  <% @game.events.each do |event| %>
+    <tr>
+      <td><%= event.clock %></td>
+      <td><%= event.period %></td>
+      <td><%= event.event_type %></td>
+      <td><%= event.updated %></td>
+      <td><%= event.description %></td>
+    </tr>
+  <% end %>
+</table>

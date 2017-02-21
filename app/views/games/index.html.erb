@@ -1,0 +1,7 @@
+<ul>
+  <% Game.all.each do |game| %>
+    <li>
+      <%= link_to game.description, game_path(game.remote_id) %>
+    </li>
+  <% end %>
+</ul>
