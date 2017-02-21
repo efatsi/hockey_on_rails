@@ -5,10 +5,7 @@ class GameWatcher
 
     @game = Game.last
 
-    while(true) do
-      execute_loop
-      sleep(10)
-    end
+    execute_loop
   end
 
   def execute_loop
