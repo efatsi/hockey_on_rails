@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+#notice {
+  background-color: lightblue;
+  line-height:      40px;
+  padding-left:     20px;
+  margin-bottom:    10px;
+  font-size:        20px;
+
+  &.goal {
+    background-color: lightgreen;
+  }
+}

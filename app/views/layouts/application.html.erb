@@ -4,13 +4,42 @@
     <title>HockeyOnRails</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
   </head>
 
   <body>
-    <p id="notice"><%= notice %></p>
+    <div id="notice"><%= notice %></div>
 
     <%= yield %>
   </body>
+
+  <%= javascript_include_tag 'application' %>
 </html>
+
+<% if content_for(:pusher_channel) %>
+  <script>
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('d76fc30734232469f535', {
+      encrypted: true
+    });
+
+    var channel = pusher.subscribe("<%= content_for(:pusher_channel) %>");
+    channel.bind('update', function(data) {
+      $("#notice").hide().text(data.message).slideDown()
+
+      if (data.goal) {
+        $("#notice").addClass("goal")
+      } else {
+        $("#notice").removeClass("goal")
+      }
+
+      clearTimeout(this.window.existingTimeout)
+      this.window.existingTimeout = setTimeout(function() {
+        $("#notice").slideUp()
+      }, 3000)
+    });
+  </script>
+<% end %>

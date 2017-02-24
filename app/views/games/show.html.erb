@@ -1,3 +1,5 @@
+<%= content_for(:pusher_channel, "game-#{@game.id}") %>
+
 <div>
   <b><%= @game.description %></b>
   (<%= @game.remote_id %>)

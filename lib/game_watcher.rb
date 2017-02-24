@@ -28,7 +28,7 @@ class GameWatcher
       puts "Beginning loop..."
 
       response = HTTParty.get("https://api.sportradar.us/nhl-ot4/games/#{game.remote_id}/pbp.json?api_key=g8zxvn32anknmadk5ayuhdka");
-      body = JSON.parse(response.body)
+      body     = JSON.parse(response.body)
 
       process_periods(body["periods"])
       save_clock_data(body["clock"], body["periods"])
@@ -64,6 +64,26 @@ class GameWatcher
 
     if event["description"] == "End of 3rd Period."
       @stop_watching = true
+    end
+
+    case event["event_type"]
+    when "goal"
+      Pusher.trigger(["games", "game-#{game.id}"], 'update', {
+        message: "#{event["attribution"]["name"]}: goal scored!",
+        goal:    true
+      })
+    when "penalty"
+      Pusher.trigger(["games", "game-#{game.id}"], 'update', {
+        message: "#{event["attribution"]["name"]}: #{event["description"]}"
+      })
+    when "shotsaved"
+      Pusher.trigger(["games", "game-#{game.id}"], 'update', {
+        message: "#{event["attribution"]["name"]}: #{event["description"]}"
+      })
+    when "faceoff"
+      Pusher.trigger(["games", "game-#{game.id}"], 'update', {
+        message: "#{event["attribution"]["name"]}: won faceoff"
+      })
     end
 
     Event.create({

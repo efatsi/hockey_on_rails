@@ -10,6 +10,7 @@ gem 'httparty'
 gem 'awesome_print'
 gem 'jquery-rails'
 gem 'simple_form'
+gem 'pusher'
 
 group :development, :test do
   gem 'pry'
