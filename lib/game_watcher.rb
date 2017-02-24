@@ -86,7 +86,7 @@ class GameWatcher
       })
     end
 
-    Event.create({
+    new_event = Event.new({
       game:        game,
       period:      "#{period["type"]} #{period["number"]}",
       remote_id:   event["id"],
@@ -96,6 +96,16 @@ class GameWatcher
       event_type:  event["event_type"],
       updated:     event["updated"],
     })
+
+    if new_event.save
+      Pusher.trigger("game-#{game.id}", 'new-event', {
+        clock:       new_event.clock,
+        period:      new_event.period,
+        event_type:  new_event.event_type,
+        wall_clock:  new_event.wall_clock.to_mst_time,
+        description: new_event.description,
+      })
+    end
   end
 
   def save_clock_data(clock, periods = [])

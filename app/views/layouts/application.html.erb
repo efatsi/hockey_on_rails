@@ -46,5 +46,12 @@
         $("#notice").slideUp()
       }, 10000)
     });
+
+    channel.bind('new-event', function(data) {
+      $("tbody").append("<tr><td>" + data["clock"] + "</td><td>" + data["period"] + "</td><td>" + data["event_type"] + "</td><td>" + data["wall_clock"] + "</td><td>" + data["description"] + "</td></tr>")
+      $("html, body").animate({ scrollTop: $(document).height() }, "slow")
+    })
   </script>
 <% end %>
+
+<%= content_for :additional_js %>
