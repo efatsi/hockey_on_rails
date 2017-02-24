@@ -9,6 +9,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'httparty'
 gem 'awesome_print'
 gem 'jquery-rails'
+gem 'simple_form'
 
 group :development, :test do
   gem 'pry'
