@@ -8,8 +8,10 @@
   <%= @game.watch ? "Being watched" : "Not being watched" %>
 </div>
 
-<%= link_to 'Edit', edit_game_path(@game) %> |
-<%= link_to 'Back', games_path %>
+<div>
+  <%= link_to 'Edit', edit_game_path(@game) %> |
+  <%= link_to 'Back', games_path %>
+</div>
 
 <br>
 <br>
@@ -32,3 +34,10 @@
     </tr>
   <% end %>
 </table>
+
+<div class="event-links">
+  <%= link_to "Goal", game_manual_events_path(@game, event_type: "goal"), method: :post, remote: true, class: "event-link" %>
+  <%= link_to "Penalty", game_manual_events_path(@game, event_type: "penalty"), method: :post, remote: true, class: "event-link" %>
+  <%= link_to "Shotsaved", game_manual_events_path(@game, event_type: "shotsaved"), method: :post, remote: true, class: "event-link" %>
+  <%= link_to "Faceoff", game_manual_events_path(@game, event_type: "faceoff"), method: :post, remote: true, class: "event-link" %>
+</div>

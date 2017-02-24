@@ -17,3 +17,10 @@
 $("#notice").click(function(e) {
   $(e.target).slideUp()
 })
+
+clearTimeout(this.window.existingTimeout)
+this.window.existingTimeout = setTimeout(function() {
+  if ($("#notice").hasClass("displaying")) {
+    $("#notice").slideUp()
+  }
+}, 3000)

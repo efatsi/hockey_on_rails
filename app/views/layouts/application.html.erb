@@ -9,7 +9,11 @@
   </head>
 
   <body>
-    <div id="notice"><%= notice %></div>
+    <% if notice.present? %>
+      <div id="notice" class="displaying"><%= notice %></div>
+    <% else %>
+      <div id="notice"></div>
+    <% end %>
 
     <%= yield %>
   </body>

@@ -1,0 +1,2 @@
+module ManualEventsHelper
+end
