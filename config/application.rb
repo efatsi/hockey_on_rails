@@ -13,5 +13,6 @@ module HockeyOnRails
     # -- all .rb files in that directory are automatically loaded.
 
      config.eager_load_paths += %W(#{config.root}/lib)
+     config.assets.paths << "#{Rails.root}/app/assets/audio"
   end
 end

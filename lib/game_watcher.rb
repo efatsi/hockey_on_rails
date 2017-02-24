@@ -74,7 +74,8 @@ class GameWatcher
       })
     when "penalty"
       Pusher.trigger(["games", "game-#{game.id}"], 'update', {
-        message: "#{event["attribution"]["name"]}: #{event["description"]}"
+        message: "#{event["attribution"]["name"]}: #{event["description"]}",
+        penaly:  true
       })
     when "shotsaved"
       Pusher.trigger(["games", "game-#{game.id}"], 'update', {
