@@ -13,7 +13,7 @@ gem 'simple_form'
 gem 'pusher'
 
 group :development, :test do
-  gem 'pry'
+  gem 'pry-rails'
 end
 
 group :development do
