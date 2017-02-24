@@ -6,6 +6,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+    <meta name="viewport" content="initial-scale=1">
   </head>
 
   <body>
@@ -43,7 +44,7 @@
       clearTimeout(this.window.existingTimeout)
       this.window.existingTimeout = setTimeout(function() {
         $("#notice").slideUp()
-      }, 3000)
+      }, 10000)
     });
   </script>
 <% end %>
