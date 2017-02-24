@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170224110814) do
+ActiveRecord::Schema.define(version: 20170224120905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "clock_data", force: :cascade do |t|
+    t.integer  "game_id"
+    t.string   "period"
+    t.string   "clock"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "events", force: :cascade do |t|
     t.string   "remote_id"
@@ -25,6 +33,7 @@ ActiveRecord::Schema.define(version: 20170224110814) do
     t.string   "period"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.datetime "wall_clock"
   end
 
   create_table "games", force: :cascade do |t|
@@ -33,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170224110814) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.boolean  "watch",       default: false
+    t.datetime "game_time"
   end
 
 end

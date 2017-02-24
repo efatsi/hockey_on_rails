@@ -3,19 +3,21 @@
 <table>
   <thead>
     <tr style="text-align: left;">
+      <th>ID</th>
       <th>Game</th>
       <th>Watched</th>
-      <th>Remote ID</th>
+      <th>Game Time</th>
       <th></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @games.each do |game| %>
+    <% @games.order(:id).each do |game| %>
       <tr>
+        <td><%= game.id %></td>
         <td><%= link_to game.description, game_path(game) %></td>
         <td><%= game.watch ? "Yes" : "No" %></td>
-        <td><%= game.remote_id %></td>
+        <td><%= game.game_time.in_time_zone("MST").strftime("%m/%d %-I:%M") %></td>
         <td>
           <%= link_to 'Edit', edit_game_path(game) %> |
           <%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %>
@@ -27,4 +29,10 @@
 
 <br>
 
-<%= link_to 'New Game', new_game_path %>
+<div>
+  <%= link_to 'New Game', new_game_path %>
+</div>
+
+<div>
+  <%= link_to "http://developer.sportradar.com/files/indexHockey.html#nhl-api", "http://developer.sportradar.com/files/indexHockey.html#nhl-api" %>
+</div>
