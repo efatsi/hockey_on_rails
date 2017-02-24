@@ -1,26 +1,40 @@
 class GameWatcher
+  attr_reader :game
+
+  def initialize(game_id)
+    @game = Game.find_by(id: game_id)
+  end
 
   def watch
-    return if Game.none?
-
-    @game = Game.last
-
-    execute_loop
+    if game.present?
+      while(true) do
+        execute_loop
+      end
+    else
+      puts "Invalid game id"
+    end
   end
 
   def execute_loop
-    puts "Beginning loop..."
+    if game.watch
+      puts "Beginning loop..."
 
-    response = HTTParty.get("https://api.sportradar.us/nhl-ot4/games/#{@game.remote_id}/pbp.json?api_key=g8zxvn32anknmadk5ayuhdka")
-    body = JSON.parse(response.body)
+      response = HTTParty.get("https://api.sportradar.us/nhl-ot4/games/#{game.remote_id}/pbp.json?api_key=g8zxvn32anknmadk5ayuhdka")
+      body = JSON.parse(response.body)
 
-    process_periods(body["periods"])
+      process_periods(body["periods"])
+    else
+      puts "Game not being watched. Retry in 1 minute."
+      sleep(60)
+    end
   rescue => e
     puts "Error raised: #{e}"
   end
 
   def process_periods(periods = [])
-    Array(periods).each do |period|
+    period = Array(periods).last
+
+    if period.present?
       process_events(period["events"], period)
     end
   end
@@ -37,7 +51,7 @@ class GameWatcher
     puts "Inserting event: #{event["event_type"]}"
 
     Event.create({
-      game:        @game,
+      game:        game,
       period:      "#{period["type"]} #{period["number"]}",
       remote_id:   event["id"],
       clock:       event["clock"],
