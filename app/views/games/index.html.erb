@@ -19,7 +19,7 @@
         <td><%= game.id %></td>
         <td><%= link_to game.description, game_path(game) %></td>
         <td><%= game.watch ? "Yes" : "No" %></td>
-        <td><%= game.game_time.in_time_zone("MST").strftime("%m/%d %-I:%M") %></td>
+        <td><%= game.game_time.to_mst_datetime %></td>
         <td>
           <%= link_to 'Edit', edit_game_path(game) %> |
           <%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %>

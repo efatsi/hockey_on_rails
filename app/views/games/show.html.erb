@@ -24,12 +24,12 @@
     <th style="text-align: left;">Wall Clock</th>
     <th style="text-align: left;">Description</th>
   </tr>
-  <% @game.events.each do |event| %>
+  <% @game.all_events.sort_by(&:wall_clock).each do |event| %>
     <tr>
       <td><%= event.clock %></td>
       <td><%= event.period %></td>
       <td><%= event.event_type %></td>
-      <td><%= event.wall_clock %></td>
+      <td><%= event.wall_clock.to_mst_time %></td>
       <td><%= event.description %></td>
     </tr>
   <% end %>

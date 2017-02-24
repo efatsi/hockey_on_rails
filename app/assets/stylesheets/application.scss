@@ -14,6 +14,10 @@
  *= require_self
  */
 
+body {
+  padding-bottom: 60px;
+}
+
 #notice {
   background-color: lightblue;
   line-height:      40px;
@@ -27,13 +31,14 @@
 }
 
 .event-links {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   display: flex;
   flex-direction: row;
   align-items: stretch;
   width: 100%;
-  margin-bottom: 10px;
+  background: white;
+  padding: 10px 0;
 
   .event-link {
     border: 1px solid black;
